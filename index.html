@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tesser test site march 5</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ui-desktop">
+        <div class="ui-icon">
+            <div class="ui-icon-container" onclick="openPopup('A')">
+                <img src="folder.png" alt="A">
+                <span></span>
+            </div>
+        </div>
+        <div class="ui-icon">
+            <div class="ui-icon-container" onclick="openPopup('MONOLITH')">
+                <img src="folder.png" alt="MONOLITH">
+                <span></span>
+            </div>
+        </div>
+        <div class="ui-icon">
+            <div class="ui-icon-container" onclick="openPopup('C')">
+                <img src="folder.png" alt="C">
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class="logo-container">
+        <img src="tesserMidT.png" alt="Logo">
+    </div>
+    <div class="start-bar">
+        <a href="https://www.instagram.com/tessermedia/" class="button start-button-wrapper">
+            <div class="start-button"></div>
+        </a>
+        <span class="made-by" id="current-time"></span> <!-- This is the bottom right text -->
+        <script>
+            function updateTime() {
+            var now = new Date();
+            var options = { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' };
+            var timeString = now.toLocaleTimeString('en-US', options);
+            document.getElementById('current-time').innerText = timeString;
+            }
+            setInterval(updateTime, 1000);
+            updateTime(); // Initial call to set the time immediately
+        </script>
+    </div>
+
+    <!-- Popup Window -->
+    <div class="popup-window" id="popup-window">
+        <div class="popup-title-bar">
+            <span class="popup-title" id="popup-title">Popup Title</span>
+            <button class="popup-close-button" onclick="closePopup()">X</button>
+        </div>
+        <div class="popup-content" id="popup-content">
+            <p>This is a Windows 98 style popup!</p>
+        </div>
+    </div>z
+
+    <!-- Include jQuery before your custom script -->
+    <script src="jquery.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+        function openPopup(title) {
+            document.getElementById('popup-title').innerText = title;
+            if (title === 'MONOLITH') {
+                var img = new Image();
+                img.src = 'monolith.png';
+                img.onload = function() {
+                    document.getElementById('popup-content').innerHTML = `<img src="${img.src}" alt="${title}" class="popup-image">`;
+                    
+                    // Adjust the window size to fit the image
+                    document.getElementById('popup-window').style.width = img.width - 100 + 'px';
+                    document.getElementById('popup-window').style.height = (img.height + document.querySelector('.popup-title-bar').offsetHeight - 1000) + 'px';
+                };
+            } else {
+                document.getElementById('popup-content').innerHTML = `<p>This is the content for ${title}!</p>`;
+                
+                // Set default window size for other content
+                document.getElementById('popup-window').style.width = '300px';
+                document.getElementById('popup-window').style.height = 'auto';
+            }
+            document.getElementById('popup-window').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup-window').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
