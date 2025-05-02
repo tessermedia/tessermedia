@@ -114,6 +114,8 @@ body, html {
     display: block;
     width: 100%;
     text-align: center;
+    font-size: 8%; /* Adjust the font size for all folder text */
+    color: black; /* Change the folder text color to black */
 }
 
 .start-bar {
@@ -138,12 +140,24 @@ body, html {
 }
 
 .start-button-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 2px 6px;
     background-color: silver;
     border: 1px solid gray;
     box-shadow: inset 1px 1px #dfdfdf, 1px 0 #000, 0 1px #000, 1px 1px #000;
+}
+
+.online-label {
+    position: absolute;
+    bottom: -10px; /* Position the label below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-family: 'MS Sans Serif', serif; /* Use the same font as the rest of the site */
+    color: rgb(0, 0, 0); /* Make the label text green */
+    text-transform: lowercase; /* Ensure the text is lowercase */
 }
 
 .start-button {
