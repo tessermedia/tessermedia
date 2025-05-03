@@ -8,10 +8,15 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico"> <!-- Updated to use favicon.ico -->
     <style>
+        body {
+            font-family: 'MS Sans Serif', sans-serif;
+        }
+
         .start-button-wrapper {
             position: relative;
             display: flex;
             align-items: center;
+            padding: 4px;
         }
 
         .online-label {
@@ -26,11 +31,62 @@
         }
 
         .ui-icon-container {
-            cursor: pointer; /* Change cursor to pointer when hovering over the folder icons */
+            cursor: pointer;
+            width: 100px; /* Set a fixed width for the container */
+            text-align: center; /* Center the text under the icon */
+        }
+
+        .ui-icon-container img {
+            width: 64px; /* Increase the folder icon size */
+            height: 64px;
+            display: block;
+            margin: 0 auto; /* Center the icon */
         }
 
         .ui-icon-container span {
-            font-size: 8%; /* Adjust the font size for all folder text */
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+            font-family: 'MS Sans Serif', sans-serif;
+        }
+
+        .ui-icon {
+            margin: 20px; /* Add more space between folders */
+        }
+
+        .popup-window {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0 #000;
+            display: none;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            padding: 0; /* Remove padding to allow iframe to fill space */
+            overflow: hidden;
+            height: calc(100% - 30px); /* Account for title bar height */
+        }
+
+        .popup-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block; /* Remove any extra spacing */
+        }
+
+        .made-by {
+            font-family: 'MS Sans Serif', sans-serif;
+        }
+
+        .start-button {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -65,9 +121,9 @@
     </div>
     <div class="start-bar">
         <a href="https://www.instagram.com/tessermedia/" class="button start-button-wrapper">
-            <div class="start-button"></div>
+            <img src="camera-1.png" alt="Start" class="start-button">
         </a>
-        <span class="made-by" id="current-time"></span> <!-- This is the bottom right clock -->
+        <span class="made-by" id="current-time"></span>
     </div>
 
     <!-- Popup Window -->
@@ -95,12 +151,11 @@
                         src="https://www.youtube.com/embed/WEvIf0X8zrA?si=8sRum2s7D_Krmfhc" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen 
-                        style="width: 100%; height: 100%;">
+                        allowfullscreen>
                     </iframe>
                 `;
                 document.getElementById('popup-window').style.width = '640px';
-                document.getElementById('popup-window').style.height = '360px';
+                document.getElementById('popup-window').style.height = '360px'; // Increased height for better video display
             } else if (title === 'MONOLITH') {
                 var img = new Image();
                 img.src = 'monolith.png';
