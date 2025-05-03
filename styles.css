@@ -162,8 +162,8 @@ body, html {
 
 .start-button {
     background-image: url('start-button.png');
-    width: 45px;
-    height: 14px;
+    width: 25px;
+    height: 7px;
 }
 
 .start-bar-window, .made-by {

@@ -64,19 +64,22 @@
             box-shadow: 2px 2px 0 #000;
             display: none;
             z-index: 100;
+            max-width: 90vw;
+            max-height: 90vh;
         }
 
         .popup-content {
-            padding: 0; /* Remove padding to allow iframe to fill space */
+            padding: 0;
             overflow: hidden;
-            height: calc(100% - 30px); /* Account for title bar height */
+            height: calc(100% - 30px);
         }
 
         .popup-content iframe {
             width: 100%;
             height: 100%;
             border: none;
-            display: block; /* Remove any extra spacing */
+            display: block;
+            aspect-ratio: 16/9;
         }
 
         .made-by {
@@ -84,9 +87,26 @@
         }
 
         .start-button {
+            background: #c0c0c0;
+            border: none;
+            padding: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 28px;
+            width: 28px;
+        }
+
+        .start-button:active {
+            background: #808080;
+        }
+
+        .start-button img {
             width: 24px;
             height: 24px;
             object-fit: contain;
+            display: block;
         }
 
         .popup-title-bar {
@@ -113,6 +133,100 @@
         .ui-desktop {
             position: relative;
             z-index: 1;
+        }
+
+        .start-button-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .start-menu {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #c0c0c0;
+            border: 2px solid #000;
+            display: none;
+            min-width: 200px;
+            box-shadow: 2px 2px 0 #000;
+            z-index: 1001;
+        }
+
+        .start-menu-content {
+            padding: 4px;
+        }
+
+        .start-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            cursor: pointer;
+            user-select: none;
+            color: black;
+        }
+
+        .start-menu-item:hover {
+            background: #000080;
+            color: white;
+        }
+
+        .start-menu-item img {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        .start-menu-separator {
+            height: 2px;
+            background: #808080;
+            margin: 4px 0;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .ui-desktop {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .ui-icon {
+                margin: 10px;
+            }
+
+            .ui-icon-container {
+                width: 80px;
+            }
+
+            .ui-icon-container img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .ui-icon-container span {
+                font-size: 12px;
+            }
+
+            .popup-window {
+                width: 90vw;
+                max-width: 640px;
+                height: auto;
+                max-height: 90vh;
+            }
+
+            .popup-content iframe {
+                aspect-ratio: 16/9;
+            }
+
+            .start-bar {
+                padding: 8px;
+            }
+
+            .start-menu {
+                min-width: 160px;
+            }
         }
     </style>
 </head>
@@ -146,9 +260,24 @@
         <img src="tesserMidT.png" alt="Logo">
     </div>
     <div class="start-bar">
-        <a href="https://www.instagram.com/tessermedia/" class="button start-button-wrapper">
-            <img src="camera-1.png" alt="Start" class="start-button">
-        </a>
+        <div class="start-button-wrapper">
+            <button class="start-button" onclick="toggleStartMenu()">
+                <img src="tesserMidT.png" alt="Start">
+            </button>
+            <div class="start-menu" id="startMenu">
+                <div class="start-menu-content">
+                    <div class="start-menu-item" onclick="openPopup('Duckumentary')">
+                        <img src="folder.png" alt="Duckumentary">
+                        <span>Duckumentary</span>
+                    </div>
+                    <div class="start-menu-separator"></div>
+                    <div class="start-menu-item" onclick="window.open('https://www.instagram.com/tessermedia/', '_blank')">
+                        <img src="camera-1.png" alt="Instagram">
+                        <span>Instagram</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <span class="made-by" id="current-time"></span>
     </div>
 
@@ -236,8 +365,8 @@
                         allowfullscreen>
                     </iframe>
                 `;
-                document.getElementById('popup-window').style.width = '640px';
-                document.getElementById('popup-window').style.height = '360px'; // Increased height for better video display
+                document.getElementById('popup-window').style.width = 'min(640px, 90vw)';
+                document.getElementById('popup-window').style.height = 'auto';
             } else if (title === 'MONOLITH') {
                 var img = new Image();
                 img.src = 'monolith.png';
@@ -269,6 +398,24 @@
         // Initialize the clock and update it every minute
         updateTime();
         setInterval(updateTime, 60000);
+
+        function toggleStartMenu() {
+            const startMenu = document.getElementById('startMenu');
+            if (startMenu.style.display === 'block') {
+                startMenu.style.display = 'none';
+            } else {
+                startMenu.style.display = 'block';
+            }
+        }
+
+        // Close start menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const startMenu = document.getElementById('startMenu');
+            const startButton = document.querySelector('.start-button');
+            if (!startButton.contains(e.target) && !startMenu.contains(e.target)) {
+                startMenu.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
